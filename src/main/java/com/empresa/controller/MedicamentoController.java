@@ -50,7 +50,7 @@ public class MedicamentoController {
 			
 	}
 	
-	// BUSQUEDA DE ALUMNO POR STOCK
+	// BUSQUEDA DE MEDICAMENTO POR STOCK
 	@GetMapping("/stock/{paramStock}")
 	@ResponseBody
 	public ResponseEntity<List<Medicamento>> buscarPorStock(@PathVariable("paramStock") int stock){
@@ -64,7 +64,7 @@ public class MedicamentoController {
 
 	}
 	
-	// BUSQUEDA DE ALUMNO POR NOMBRE
+	// BUSQUEDA DE MEDICAMENTO POR NOMBRE
 	@GetMapping("/nombre/{paramNombre}")
 	@ResponseBody
 	public ResponseEntity<List<Medicamento>> buscarPorNombre(@PathVariable("paramNombre") String nombre){
