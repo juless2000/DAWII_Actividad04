@@ -35,6 +35,8 @@ public class MedicamentoController {
 		return ResponseEntity.ok(lista);
 	}
 	
+	//REGISTRAR MEDICAMENTO - BACKEND
+	
 	@PostMapping
 	@ResponseBody
 	public ResponseEntity<Map<String, Object>> insertarMedicamento(@RequestBody Medicamento obj){
