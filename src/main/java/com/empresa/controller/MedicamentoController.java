@@ -1,10 +1,13 @@
 package com.empresa.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,9 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.empresa.entity.Medicamento;
 import com.empresa.service.MedicamentoService;
+import com.empresa.util.Constantes;
 
 @RestController
 @RequestMapping("/rest/medicamento")
+@CrossOrigin(origins = "http://localhost:4200")
 public class MedicamentoController {
 	
 	@Autowired
@@ -32,9 +37,21 @@ public class MedicamentoController {
 	
 	@PostMapping
 	@ResponseBody
-	public ResponseEntity<Medicamento> insertarMedicamento(@RequestBody Medicamento obj){
-		Medicamento objSalida = service.insertaActualizaMedicamento(obj);
-		return ResponseEntity.ok(objSalida);
+	public ResponseEntity<Map<String, Object>> insertarMedicamento(@RequestBody Medicamento obj){
+		Map<String, Object> salida = new HashMap<>();
+		try {
+			
+			Medicamento objSalida = service.insertaActualizaMedicamento(obj);
+			if (objSalida == null) {
+				salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+			}else {
+				salida.put("mensaje", Constantes.MENSAJE_REG_EXITOSO);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			salida.put("mensaje", Constantes.MENSAJE_REG_ERROR);
+		}
+		return ResponseEntity.ok(salida);
 	}
 	
 	//BUSQUEDA DE MEDICAMENTO POR ID
